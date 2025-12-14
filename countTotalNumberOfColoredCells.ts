@@ -1,66 +1,38 @@
-const moves = ["up", "right", "down", "left"]
-
 function coloredCells(n: number): number {
   if (n === 1) {
     return 1
   }
-  const matrixStack = [[0, 0]]
-  const coloredCells = colorsCellsCalculation(n, 0, matrixStack)
 
-  return coloredCells
-}
+  const pointsSet = new Set<string>()
+  pointsSet.add("0,0")
 
-function colorsCellsCalculation(
-  n: number,
-  coloredCells: number,
-  matrixStack: number[][]
-) {
-  console.log("N: ", n)
-  let i = 0
-  const pointsSet = new Set("0,0")
+  for (let i = 2; i <= n; i++) {
+    const newPointsSet = new Set<string>()
+    for (const pointSet of pointsSet) {
+      const point: number[] = pointSet.split(",").map(Number)
 
-  while (matrixStack.length > 0 && i < n) {
-    i++
-    const point = matrixStack.shift()
-
-    for (let position of moves) {
       const [x, y] = point as number[]
-      let newY = 0
-      let newX = 0
-      if (position === "up") {
-        newX = x
-        newY = y + 1
-      } else if (position === "right") {
-        newX = x + 1
-        newY = y
-      } else if (position === "down") {
-        newX = x
-        newY = y - 1
-      } else if (position === "left") {
-        newX = x - 1
-        newY = y
-      }
+      const directions = [
+        [x + 1, y], // right
+        [x - 1, y], // left
+        [x, y + 1], // up
+        [x, y - 1], // down
+      ]
 
-      const coordinates = `${newX},${newY}`
-      if (!pointsSet.has(coordinates)) {
-        pointsSet.add(coordinates)
-        matrixStack.unshift([newX, newY])
+      for (const [newX, newY] of directions) {
+        const coordinates = `${newX},${newY}`
+        if (!pointsSet.has(coordinates)) {
+          newPointsSet.add(coordinates)
+        }
       }
+    }
 
-      console.log(
-        "TCL",
-        "coloredCells",
-        coloredCells,
-        "matrixStack:",
-        matrixStack.length,
-        "i:",
-        i
-      )
-      coloredCells += matrixStack.length
+    for (const newPoint of newPointsSet) {
+      pointsSet.add(newPoint)
     }
   }
 
-  return coloredCells
+  return pointsSet.size
 }
 
-coloredCells(4)
+console.log(coloredCells(96))
