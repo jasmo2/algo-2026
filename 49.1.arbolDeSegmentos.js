@@ -118,5 +118,13 @@ function buildSegmentTreeMain(arr) {
   return traversedValues
 }
 
-const result = buildSegmentTreeMain([])
-console.log(result)
+let buffer = '';
+process.stdin.on('data', chunk => buffer += chunk);
+process.stdin.on('end', () => main(buffer));
+
+function main(input) {
+    const lines = input.trim().split('\n');
+    const n = parseInt(lines[0]);
+    const arr = lines[1].split(' ').map(Number);
+    buildSegmentTreeMain(arr);
+}
