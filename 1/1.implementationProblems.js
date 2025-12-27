@@ -99,17 +99,33 @@
  */
 
 
+function implementationProblem(arr, n) {
+  // let summatory = 0;
+  // for(let i = 0; i < n; i++) {
+  //   summatory += (i+1);
+  // }
+  // Fórmula de Gauss       
+  const summatory = ( n * (n+1) / 2 )
+
+  let arrSummatory = 0
+  const arrSummatoryL = arr.length;
+  for(let i=0; i < arrSummatoryL; i++) {
+    arrSummatory += arr[i];
+  }
+
+  const result = summatory - arrSummatory;
+  return result
+}
+
+
 let buffer = '';
 process.stdin.on('data', chunk => buffer += chunk);
 process.stdin.on('end', () => main(buffer));
 
-
-function main(num, nums) {
-    const n = Number(num);
-    const numbers = nums.trim().split(/\s/).map(Number);
-
-    // Your code goes here
-
-    // console.log(ans);
-    process.exit();
+function main(input) {
+  const inputs = input.trim().split('\n');
+  const n = parseInt(inputs[0], 10);
+  const arr = inputs[1].split(" ").map((strN)=> Number(strN));
+  const result = implementationProblem(arr, n);
+  console.log(result);
 }
