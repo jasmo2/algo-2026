@@ -33,6 +33,13 @@
 
 
 function findPeak(arr) {
+  const arrL = arr.length
+  for(let i = arrL - 2; i > 0; i--){
+    if(arr[i-1] <= arr[i] && arr[i] >= arr[i+1]) {
+      const peak = arr[i]
+      return peak
+    }
+  }
   return "Impossible"
 }
 
