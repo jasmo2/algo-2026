@@ -36,41 +36,13 @@
  * - Memoria límite: 512 MB
  * - Límite de salida: 1 MB
  */
-function includes(doubleArr1, arr2) {
-  let arrL = arr2.length
-
-  let comparison = false
-  let i=0;
-  let j=0;
-  while(
-    i<(arrL*2 -1) &&
-    j<(arrL -1)
-  ){
-    if(doubleArr1[i] === arr2[j] && !comparison){
-      comparison = true
-    }
-    if(comparison && doubleArr1[i] !== arr2[j]) {
-      return false
-    }
-
-    i++
-    if(comparison){ 
-      j++
-    }
-    
-  }
-
-  return true
-}
 
 function sliceNdice(arr1, arr2) {
   const doubleArr1 = [...arr1, ...arr1]
 
-
-
-
+  // Based on the documentation is O(n), includes
+  // https://medium.com/@sonu9506517825/string-methods-in-javascript-155f216e4540
   if(includes(doubleArr1, arr2)){
-  // if(doubleStrArr1.includes(arr2)){
     return "Yes"
   }
   return "No"
