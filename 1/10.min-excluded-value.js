@@ -53,16 +53,29 @@
  * - Límite de memoria: 512 MB
  * - Límite de salida: 1 MB
  *
- * ENFOQUE:
- * --------
- * 1. Usar un Set para almacenar todos los números de la lista de entrada
- * 2. Comenzar desde 0 e incrementar hasta encontrar un número que no esté en el Set
- * 3. Devolver ese número como el MEX
- *
- * Complejidad temporal: O(n) donde n es el tamaño de la lista
- * Complejidad espacial: O(n) para el Set
  *
  * ============================================================================
  */
 
 // Implementación de la solución
+
+let buffer = ""
+process.stdin.on("data", (chunk) => (buffer += chunk))
+process.stdin.on("end", () => main(buffer))
+
+function main(input) {
+  const inputs = input.trim().split("\n")
+  const num = Number(inputs[0])
+  const arr = inputs[1].split(" ").map(Number)
+  const result = MEX(num, arr)
+  console.log(result)
+}
+
+function MEX(num, arr) {
+  const l = new Set(arr)
+  for (let i = 0; i <= num; i++) {
+    if (!l.has(i)) {
+      return i
+    }
+  }
+}
